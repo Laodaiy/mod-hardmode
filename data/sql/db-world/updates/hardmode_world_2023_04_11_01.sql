@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `hardmode_modes`;
-CREATE TABLE IF NOT EXISTS `hardmode_modes` (
+DROP TABLE IF EXISTS `mod_hardmode_modes`;
+CREATE TABLE IF NOT EXISTS `mod_hardmode_modes` (
   `id` tinyint unsigned NOT NULL DEFAULT '0',
   `name` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS `hardmode_modes` (
 
 UPDATE gameobject_template SET ScriptName = "HardModeShrineObject" WHERE entry = 441101;
 
-DROP TABLE IF EXISTS `hardmode_rewards`;
-CREATE TABLE IF NOT EXISTS `hardmode_rewards` (
+DROP TABLE IF EXISTS `mod_hardmode_rewards`;
+CREATE TABLE IF NOT EXISTS `mod_hardmode_rewards` (
   `mode` int NOT NULL,
   `reward_level` int NOT NULL,
   `reward_type` int NOT NULL,
@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS `hardmode_rewards` (
   PRIMARY KEY (`mode`,`reward_level`,`reward_type`,`reward_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DROP TABLE IF EXISTS `hardmode_auras`;
-CREATE TABLE IF NOT EXISTS `hardmode_auras` (
+DROP TABLE IF EXISTS `mod_hardmode_auras`;
+CREATE TABLE IF NOT EXISTS `mod_hardmode_auras` (
   `mode` int NOT NULL,
   `aura` int NOT NULL,
   `description` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
