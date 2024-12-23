@@ -1,5 +1,5 @@
-DELETE FROM `hardmode_selfcraft_exclude`;
-INSERT INTO `hardmode_selfcraft_exclude` (`id`, `comment`) VALUES
+DELETE FROM `mod_hardmode_selfcraft_exclude`;
+INSERT INTO `mod_hardmode_selfcraft_exclude` (`id`, `comment`) VALUES
 	(-433, 'Spell - Level 1 Food'),
 	(-430, 'Spell - Level 1 Drink'),
 	(35, 'Bent Staff'),

@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `hardmode_player_settings`;
-CREATE TABLE IF NOT EXISTS `hardmode_player_settings` (
+DROP TABLE IF EXISTS `mod_hardmode_player_settings`;
+CREATE TABLE IF NOT EXISTS `mod_hardmode_player_settings` (
   `guid` int unsigned NOT NULL,
   `modes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `tainted` tinyint DEFAULT NULL,
@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `hardmode_player_settings` (
   PRIMARY KEY (`guid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-DELETE FROM `hardmode_player_settings`;
+DELETE FROM `mod_hardmode_player_settings`;

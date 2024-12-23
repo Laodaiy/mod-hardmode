@@ -18,7 +18,7 @@ bool HardModeHandler::IsHardModeEnabled()
 
 void HardModeHandler::LoadHardModes()
 {
-    QueryResult qResult = WorldDatabase.Query("SELECT * FROM `hardmode_modes` ORDER BY id ASC");
+    QueryResult qResult = WorldDatabase.Query("SELECT * FROM `mod_hardmode_modes` ORDER BY id ASC");
 
     if (qResult)
     {
@@ -46,11 +46,11 @@ void HardModeHandler::LoadHardModes()
             count++;
         } while (qResult->NextRow());
 
-        LOG_INFO("module", "Loaded '{}' rows from 'hardmode_modes' table.", count);
+        LOG_INFO("module", "Loaded '{}' rows from 'mod_hardmode_modes' table.", count);
     }
     else
     {
-        LOG_INFO("module", "Loaded '0' rows from 'hardmode_modes' table.");
+        LOG_INFO("module", "Loaded '0' rows from 'mod_hardmode_modes' table.");
     }
 }
 
@@ -83,7 +83,7 @@ HardModeInfo* HardModeHandler::GetHardModeFromId(uint8 id)
 
 void HardModeHandler::LoadPlayerSettings()
 {
-    QueryResult qResult = CharacterDatabase.Query("SELECT * FROM `hardmode_player_settings`");
+    QueryResult qResult = CharacterDatabase.Query("SELECT * FROM `mod_hardmode_player_settings`");
 
     if (qResult)
     {
@@ -118,7 +118,7 @@ void HardModeHandler::LoadPlayerSettings()
                 }
                 catch (const boost::bad_lexical_cast&)
                 {
-                    LOG_ERROR("module", "Detected bad mode settings format for column 'mode' and guid '{}' in 'hardmode_player_settings' table.", guid);
+                    LOG_ERROR("module", "Detected bad mode settings format for column 'mode' and guid '{}' in 'mod_hardmode_player_settings' table.", guid);
                 }
             }
 
@@ -131,17 +131,17 @@ void HardModeHandler::LoadPlayerSettings()
             count++;
         } while (qResult->NextRow());
 
-        LOG_INFO("module", "Loaded '{}' rows from 'hardmode_player_settings' table.", count);
+        LOG_INFO("module", "Loaded '{}' rows from 'mod_hardmode_player_settings' table.", count);
     }
     else
     {
-        LOG_INFO("module", "Loaded '0' rows from 'hardmode_player_settings' table.");
+        LOG_INFO("module", "Loaded '0' rows from 'mod_hardmode_player_settings' table.");
     }
 }
 
 void HardModeHandler::LoadPlayerSettings(ObjectGuid player)
 {
-    QueryResult qResult = CharacterDatabase.Query("SELECT * FROM `hardmode_player_settings` WHERE guid = {}", player.GetRawValue());
+    QueryResult qResult = CharacterDatabase.Query("SELECT * FROM `mod_hardmode_player_settings` WHERE guid = {}", player.GetRawValue());
 
     if (qResult)
     {
@@ -172,7 +172,7 @@ void HardModeHandler::LoadPlayerSettings(ObjectGuid player)
             }
             catch (const boost::bad_lexical_cast&)
             {
-                LOG_ERROR("module", "Detected bad mode settings format for column 'mode' and guid '{}' in 'hardmode_player_settings' table.", guid);
+                LOG_ERROR("module", "Detected bad mode settings format for column 'mode' and guid '{}' in 'mod_hardmode_player_settings' table.", guid);
             }
         }
 
@@ -195,7 +195,7 @@ void HardModeHandler::DeletePlayerSetting(uint64 guid)
 
     settings->erase(it);
 
-    CharacterDatabase.Execute("DELETE FROM hardmode_player_settings WHERE guid = {}", guid);
+    CharacterDatabase.Execute("DELETE FROM mod_hardmode_player_settings WHERE guid = {}", guid);
 }
 
 void HardModeHandler::ClearPlayerSettings()
@@ -226,7 +226,7 @@ void HardModeHandler::SavePlayerSetting(uint64 guid, HardModePlayerSettings* set
 
     std::string sModes = ss.str();
 
-    CharacterDatabase.Execute("INSERT INTO hardmode_player_settings (guid, modes, tainted, shadowban) VALUES ({}, '{}', {}, {}) ON DUPLICATE KEY UPDATE modes = '{}', tainted = {}, shadowban = {}",
+    CharacterDatabase.Execute("INSERT INTO mod_hardmode_player_settings (guid, modes, tainted, shadowban) VALUES ({}, '{}', {}, {}) ON DUPLICATE KEY UPDATE modes = '{}', tainted = {}, shadowban = {}",
         guid, sModes, settings->Tainted, settings->ShadowBanned,
         sModes, settings->Tainted, settings->ShadowBanned);
 }
@@ -275,7 +275,7 @@ HardModePlayerSettings* HardModeHandler::GetPlayerSetting(ObjectGuid guid)
 
 void HardModeHandler::LoadSelfCraftExcludeIds()
 {
-    QueryResult qResult = WorldDatabase.Query("SELECT `id` FROM `hardmode_selfcraft_exclude`");
+    QueryResult qResult = WorldDatabase.Query("SELECT `id` FROM `mod_hardmode_selfcraft_exclude`");
 
     if (qResult)
     {
@@ -290,11 +290,11 @@ void HardModeHandler::LoadSelfCraftExcludeIds()
             count++;
         } while (qResult->NextRow());
 
-        LOG_INFO("module", "Loaded '{}' rows from 'hardmode_selfcraft_exclude' table.", count);
+        LOG_INFO("module", "Loaded '{}' rows from 'mod_hardmode_selfcraft_exclude' table.", count);
     }
     else
     {
-        LOG_INFO("module", "Loaded '0' rows from 'hardmode_selfcraft_exclude' table.");
+        LOG_INFO("module", "Loaded '0' rows from 'mod_hardmode_selfcraft_exclude' table.");
     }
 }
 
@@ -337,7 +337,7 @@ bool HardModeHandler::IsSelfCraftItemExcluded(uint32 itemId)
 
 void HardModeHandler::LoadAuras()
 {
-    QueryResult qResult = WorldDatabase.Query("SELECT `mode`, `aura` FROM `hardmode_auras`");
+    QueryResult qResult = WorldDatabase.Query("SELECT `mode`, `aura` FROM `mod_hardmode_auras`");
 
     if (qResult)
     {
@@ -368,11 +368,11 @@ void HardModeHandler::LoadAuras()
             count++;
         } while (qResult->NextRow());
 
-        LOG_INFO("module", "Loaded '{}' rows from 'hardmode_auras' table.", count);
+        LOG_INFO("module", "Loaded '{}' rows from 'mod_hardmode_auras' table.", count);
     }
     else
     {
-        LOG_INFO("module", "Loaded '0' rows from 'hardmode_auras' table.");
+        LOG_INFO("module", "Loaded '0' rows from 'mod_hardmode_auras' table.");
     }
 }
 
@@ -496,7 +496,7 @@ void HardModeHandler::UpdatePlayerScaleSpeed(Player* player, float scaleSpeed)
 
 void HardModeHandler::LoadRewards()
 {
-    QueryResult qResult = WorldDatabase.Query("SELECT `mode`, `reward_level`, `reward_type`, `reward_id`, `reward_count` FROM `hardmode_rewards`");
+    QueryResult qResult = WorldDatabase.Query("SELECT `mode`, `reward_level`, `reward_type`, `reward_id`, `reward_count` FROM `mod_hardmode_rewards`");
 
     if (qResult)
     {
@@ -538,11 +538,11 @@ void HardModeHandler::LoadRewards()
             count++;
         } while (qResult->NextRow());
 
-        LOG_INFO("module", "Loaded '{}' rows from 'hardmode_rewards' table.", count);
+        LOG_INFO("module", "Loaded '{}' rows from 'mod_hardmode_rewards' table.", count);
     }
     else
     {
-        LOG_INFO("module", "Loaded '0' rows from 'hardmode_rewards' table.");
+        LOG_INFO("module", "Loaded '0' rows from 'mod_hardmode_rewards' table.");
     }
 }
 

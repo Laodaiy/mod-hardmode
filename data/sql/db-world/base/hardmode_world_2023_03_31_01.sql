@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `hardmode_rewards`;
-CREATE TABLE IF NOT EXISTS `hardmode_rewards` (
+DROP TABLE IF EXISTS `mod_hardmode_rewards`;
+CREATE TABLE IF NOT EXISTS `mod_hardmode_rewards` (
   `mode` int(11) NOT NULL,
   `reward_type` int(11) NOT NULL,
   `reward_id` int(11) NOT NULL,
@@ -16,8 +16,8 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 DELETE FROM `creature_template_model` WHERE `CreatureID`=441102 AND `Idx`=0;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`) VALUES (441102, 0, 27104, 1, 1, 1);
 
-DROP TABLE IF EXISTS `hardmode_selfcraft_exclude`;
-CREATE TABLE IF NOT EXISTS `hardmode_selfcraft_exclude` (
+DROP TABLE IF EXISTS `mod_hardmode_selfcraft_exclude`;
+CREATE TABLE IF NOT EXISTS `mod_hardmode_selfcraft_exclude` (
   `id` int(11) NOT NULL,
   `comment` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
